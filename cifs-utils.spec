@@ -4,7 +4,7 @@
 #
 Name     : cifs-utils
 Version  : 6.5
-Release  : 3
+Release  : 4
 URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.5.tar.bz2
 Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.5.tar.bz2
 Summary  : No detailed summary available
