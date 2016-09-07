@@ -4,7 +4,7 @@
 #
 Name     : cifs-utils
 Version  : 6.6
-Release  : 5
+Release  : 6
 URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.6.tar.bz2
 Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.6.tar.bz2
 Summary  : No detailed summary available
@@ -12,6 +12,9 @@ Group    : Development/Tools
 License  : GPL-3.0
 Requires: cifs-utils-bin
 Requires: cifs-utils-doc
+Requires: cifs-utils-lib
+BuildRequires : Linux-PAM-dev
+BuildRequires : keyutils-dev
 BuildRequires : libcap-dev
 BuildRequires : libcap-ng-dev
 BuildRequires : sed
@@ -33,6 +36,7 @@ bin components for the cifs-utils package.
 %package dev
 Summary: dev components for the cifs-utils package.
 Group: Development
+Requires: cifs-utils-lib
 Requires: cifs-utils-bin
 Provides: cifs-utils-devel
 
@@ -46,6 +50,14 @@ Group: Documentation
 
 %description doc
 doc components for the cifs-utils package.
+
+
+%package lib
+Summary: lib components for the cifs-utils package.
+Group: Libraries
+
+%description lib
+lib components for the cifs-utils package.
 
 
 %prep
@@ -72,6 +84,7 @@ rm -rf %{buildroot}
 
 %files bin
 %defattr(-,root,root,-)
+/usr/bin/cifscreds
 /usr/bin/mount.cifs
 
 %files dev
@@ -80,4 +93,9 @@ rm -rf %{buildroot}
 
 %files doc
 %defattr(-,root,root,-)
+%doc /usr/share/man/man1/*
 %doc /usr/share/man/man8/*
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/security/pam_cifscreds.so
