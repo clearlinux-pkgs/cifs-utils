@@ -6,7 +6,7 @@
 #
 Name     : cifs-utils
 Version  : 6.8
-Release  : 13
+Release  : 14
 URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2
 Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2
 Source99 : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2.asc
