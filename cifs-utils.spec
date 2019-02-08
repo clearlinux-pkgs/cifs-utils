@@ -6,17 +6,19 @@
 #
 Name     : cifs-utils
 Version  : 6.8
-Release  : 14
+Release  : 18
 URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2
 Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2
 Source99 : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2.asc
-Summary  : No detailed summary available
+Summary  : CIFS filesystem user-space tools
 Group    : Development/Tools
 License  : GPL-3.0
-Requires: cifs-utils-bin
-Requires: cifs-utils-license
-Requires: cifs-utils-lib
+Requires: cifs-utils-bin = %{version}-%{release}
+Requires: cifs-utils-lib = %{version}-%{release}
+Requires: cifs-utils-license = %{version}-%{release}
+Requires: cifs-utils-man = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
+BuildRequires : docutils
 BuildRequires : keyutils-dev
 BuildRequires : krb5-dev
 BuildRequires : libcap-dev
@@ -24,15 +26,18 @@ BuildRequires : libcap-ng-dev
 BuildRequires : sed
 
 %description
-This is the release version of cifs-utils, a package of utilities for
-doing and managing mounts of the Linux CIFS filesystem. These programs
-were originally part of Samba, but have now been split off into a
-separate package.
+As of version 1.5.5, prior to opening /etc/request-key.conf, the
+request-key utility will look first in /etc/request-key.d for a file of
+the key type name plus ".conf". These files are example config files
+that distro packagers can use to have request-key autoconfigured to
+use the cifs utilities that are installed. Typically, distro packagers
+will want to drop the resulting .conf files into /etc/request-key.d.
 
 %package bin
 Summary: bin components for the cifs-utils package.
 Group: Binaries
-Requires: cifs-utils-license
+Requires: cifs-utils-license = %{version}-%{release}
+Requires: cifs-utils-man = %{version}-%{release}
 
 %description bin
 bin components for the cifs-utils package.
@@ -41,9 +46,9 @@ bin components for the cifs-utils package.
 %package dev
 Summary: dev components for the cifs-utils package.
 Group: Development
-Requires: cifs-utils-lib
-Requires: cifs-utils-bin
-Provides: cifs-utils-devel
+Requires: cifs-utils-lib = %{version}-%{release}
+Requires: cifs-utils-bin = %{version}-%{release}
+Provides: cifs-utils-devel = %{version}-%{release}
 
 %description dev
 dev components for the cifs-utils package.
@@ -52,7 +57,7 @@ dev components for the cifs-utils package.
 %package lib
 Summary: lib components for the cifs-utils package.
 Group: Libraries
-Requires: cifs-utils-license
+Requires: cifs-utils-license = %{version}-%{release}
 
 %description lib
 lib components for the cifs-utils package.
@@ -66,6 +71,14 @@ Group: Default
 license components for the cifs-utils package.
 
 
+%package man
+Summary: man components for the cifs-utils package.
+Group: Default
+
+%description man
+man components for the cifs-utils package.
+
+
 %prep
 %setup -q -n cifs-utils-6.8
 
@@ -74,7 +87,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536545411
+export SOURCE_DATE_EPOCH=1549642836
 %reconfigure --disable-static
 make  %{?_smp_mflags}
 
@@ -86,10 +99,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1536545411
+export SOURCE_DATE_EPOCH=1549642836
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/cifs-utils
-cp COPYING %{buildroot}/usr/share/doc/cifs-utils/COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/cifs-utils
+cp COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/COPYING
 %make_install
 
 %files
@@ -109,5 +122,11 @@ cp COPYING %{buildroot}/usr/share/doc/cifs-utils/COPYING
 /usr/lib64/security/pam_cifscreds.so
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/cifs-utils/COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/cifs-utils/COPYING
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/cifscreds.1
+/usr/share/man/man8/mount.cifs.8
+/usr/share/man/man8/pam_cifscreds.8

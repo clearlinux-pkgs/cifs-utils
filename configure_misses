@@ -6,5 +6,4 @@ Configure miss: krb5/krb5.h presence
 Configure miss: krb5/krb5.h
 Configure miss: wbclient
 Configure miss: whether WBC_ID_TYPE_BOTH enum value is defined
-Configure miss: rst2man
 Configure miss: whether krb5_auth_con_set_req_cksumtype is declared
