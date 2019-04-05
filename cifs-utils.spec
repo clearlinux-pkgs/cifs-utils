@@ -5,12 +5,12 @@
 # Source0 file verified with key 0xDF5BA9D30642D5A0 (cifs-utils@samba.org)
 #
 Name     : cifs-utils
-Version  : 6.8
-Release  : 18
-URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2
-Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2
-Source99 : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.8.tar.bz2.asc
-Summary  : CIFS filesystem user-space tools
+Version  : 6.9
+Release  : 19
+URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.9.tar.bz2
+Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.9.tar.bz2
+Source99 : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.9.tar.bz2.asc
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
 Requires: cifs-utils-bin = %{version}-%{release}
@@ -26,18 +26,15 @@ BuildRequires : libcap-ng-dev
 BuildRequires : sed
 
 %description
-As of version 1.5.5, prior to opening /etc/request-key.conf, the
-request-key utility will look first in /etc/request-key.d for a file of
-the key type name plus ".conf". These files are example config files
-that distro packagers can use to have request-key autoconfigured to
-use the cifs utilities that are installed. Typically, distro packagers
-will want to drop the resulting .conf files into /etc/request-key.d.
+This is the release version of cifs-utils, a package of utilities for
+doing and managing mounts of the Linux CIFS filesystem. These programs
+were originally part of Samba, but have now been split off into a
+separate package.
 
 %package bin
 Summary: bin components for the cifs-utils package.
 Group: Binaries
 Requires: cifs-utils-license = %{version}-%{release}
-Requires: cifs-utils-man = %{version}-%{release}
 
 %description bin
 bin components for the cifs-utils package.
@@ -80,14 +77,15 @@ man components for the cifs-utils package.
 
 
 %prep
-%setup -q -n cifs-utils-6.8
+%setup -q -n cifs-utils-6.9
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1549642836
+export SOURCE_DATE_EPOCH=1554499901
+export LDFLAGS="${LDFLAGS} -fno-lto"
 %reconfigure --disable-static
 make  %{?_smp_mflags}
 
@@ -99,7 +97,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1549642836
+export SOURCE_DATE_EPOCH=1554499901
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cifs-utils
 cp COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/COPYING
@@ -112,6 +110,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/COPYING
 %defattr(-,root,root,-)
 /usr/bin/cifscreds
 /usr/bin/mount.cifs
+/usr/bin/smbinfo
 
 %files dev
 %defattr(-,root,root,-)
@@ -128,5 +127,6 @@ cp COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/COPYING
 %files man
 %defattr(0644,root,root,0755)
 /usr/share/man/man1/cifscreds.1
+/usr/share/man/man1/smbinfo.1
 /usr/share/man/man8/mount.cifs.8
 /usr/share/man/man8/pam_cifscreds.8
