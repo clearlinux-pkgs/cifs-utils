@@ -6,7 +6,7 @@
 #
 Name     : cifs-utils
 Version  : 6.9
-Release  : 20
+Release  : 21
 URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.9.tar.bz2
 Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.9.tar.bz2
 Source1  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.9.tar.bz2.asc
@@ -24,6 +24,7 @@ BuildRequires : krb5-dev
 BuildRequires : libcap-dev
 BuildRequires : libcap-ng-dev
 BuildRequires : sed
+Patch1: CVE-2020-14342.patch
 
 %description
 This is the release version of cifs-utils, a package of utilities for
@@ -80,18 +81,19 @@ man components for the cifs-utils package.
 %prep
 %setup -q -n cifs-utils-6.9
 cd %{_builddir}/cifs-utils-6.9
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1580407949
+export SOURCE_DATE_EPOCH=1603211048
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
-export CXXFLAGS="$CXXFLAGS -fno-lto "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 %reconfigure --disable-static
 make  %{?_smp_mflags}
 
@@ -100,10 +102,10 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1580407949
+export SOURCE_DATE_EPOCH=1603211048
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cifs-utils
 cp %{_builddir}/cifs-utils-6.9/COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
