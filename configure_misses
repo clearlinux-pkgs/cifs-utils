@@ -1,8 +1,8 @@
-Configure miss: krb5.h
-Configure miss: krb5/krb5.h
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: keyvalue in krb5_keyblock
+Configure miss: krb5_principal_get_realm
+Configure miss: rst2man-3
+Configure miss: rst2man-3.4
+Configure miss: rst2man-3.6
 Configure miss: wbclient
 Configure miss: whether WBC_ID_TYPE_BOTH enum value is defined
-Configure miss: rst2man-3.6
-Configure miss: rst2man-3.4
-Configure miss: rst2man-3
-Configure miss: whether krb5_auth_con_set_req_cksumtype is declared
