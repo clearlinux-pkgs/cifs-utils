@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xDF5BA9D30642D5A0 (cifs-utils@samba.org)
 #
 Name     : cifs-utils
-Version  : 6.13
-Release  : 24
-URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.13.tar.bz2
-Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.13.tar.bz2
-Source1  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.13.tar.bz2.asc
+Version  : 6.14
+Release  : 25
+URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.14.tar.bz2
+Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.14.tar.bz2
+Source1  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-6.14.tar.bz2.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
@@ -78,15 +78,15 @@ man components for the cifs-utils package.
 
 
 %prep
-%setup -q -n cifs-utils-6.13
-cd %{_builddir}/cifs-utils-6.13
+%setup -q -n cifs-utils-6.14
+cd %{_builddir}/cifs-utils-6.14
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1619276745
+export SOURCE_DATE_EPOCH=1632493157
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
@@ -103,13 +103,13 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1619276745
+export SOURCE_DATE_EPOCH=1632493157
 rm -rf %{buildroot}
 ## install_prepend content
 mkdir -p %{buildroot}/sbin
 ## install_prepend end
 mkdir -p %{buildroot}/usr/share/package-licenses/cifs-utils
-cp %{_builddir}/cifs-utils-6.13/COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+cp %{_builddir}/cifs-utils-6.14/COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
 %make_install
 
 %files
