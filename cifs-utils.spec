@@ -6,7 +6,7 @@
 #
 Name     : cifs-utils
 Version  : 7.0
-Release  : 29
+Release  : 30
 URL      : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-7.0.tar.bz2
 Source0  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-7.0.tar.bz2
 Source1  : https://download.samba.org/pub/linux-cifs/cifs-utils/cifs-utils-7.0.tar.bz2.asc
@@ -86,12 +86,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1660261198
+export SOURCE_DATE_EPOCH=1664889822
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %reconfigure --disable-static ROOTSBINDIR=/usr/bin
 make  %{?_smp_mflags}
 
@@ -103,13 +103,13 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1660261198
+export SOURCE_DATE_EPOCH=1664889822
 rm -rf %{buildroot}
 ## install_prepend content
 mkdir -p %{buildroot}/sbin
 ## install_prepend end
 mkdir -p %{buildroot}/usr/share/package-licenses/cifs-utils
-cp %{_builddir}/cifs-utils-%{version}/COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+cp %{_builddir}/cifs-utils-%{version}/COPYING %{buildroot}/usr/share/package-licenses/cifs-utils/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
 %make_install
 
 %files
