@@ -1,8 +1,18 @@
 Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: keyvalue in krb5_keyblock
 Configure miss: keyvalue in krb5_keyblock
 Configure miss: krb5_principal_get_realm
+Configure miss: krb5_principal_get_realm
+Configure miss: rst2man-3
 Configure miss: rst2man-3
 Configure miss: rst2man-3.4
+Configure miss: rst2man-3.4
 Configure miss: rst2man-3.6
+Configure miss: rst2man-3.6
+Configure miss: rst2man.py
+Configure miss: rst2man.py
 Configure miss: wbclient
+Configure miss: wbclient
+Configure miss: whether WBC_ID_TYPE_BOTH enum value is defined
 Configure miss: whether WBC_ID_TYPE_BOTH enum value is defined
